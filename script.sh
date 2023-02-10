@@ -23,7 +23,8 @@ fi
 
 echo "------Validate--------"
 echo $ALLURE_SERVER
-curl "$ALLURE_SERVER/allure-docker-service/version"
+curl "$ALLURE_SERVER/allure-docker-service/version" > teste.txt
+cat teste.txt
 
 FILES=''
 for FILE in $FILES_TO_SEND; do
