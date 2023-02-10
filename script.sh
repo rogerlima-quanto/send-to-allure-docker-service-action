@@ -7,7 +7,7 @@ ALLURE_GENERATE=$4
 
 SECURITY_USER=$ALLURE_SERVER_USER
 SECURITY_PASS=$ALLURE_SERVER_PASSWORD
-ALLURE_SERVER=$ALLURE_SERVER_URL
+ALLURE_SERVER=https://allure-reports.shared-service-saopaulo.k8s.hub.contaquanto.net/allure-api
 
 FILES_TO_SEND=$(ls -dp $ALLURE_RESULTS_DIRECTORY/* | grep -v /$)
 
