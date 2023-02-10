@@ -21,7 +21,8 @@ if [ -z "$ALLURE_SERVER_URL" ]; then
     exit 1
 fi
 
-
+echo "------Validate--------"
+echo $ALLURE_SERVER
 curl "$ALLURE_SERVER/allure-docker-service/version"
 
 FILES=''
