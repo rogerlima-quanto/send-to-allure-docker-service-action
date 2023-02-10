@@ -23,7 +23,7 @@ fi
 
 echo "------Validate--------"
 echo $ALLURE_SERVER
-curl "$ALLURE_SERVER/allure-docker-service/version" > teste.txt
+curl "https://allure-reports.shared-service-saopaulo.k8s.hub.contaquanto.net/allure-api/allure-docker-service/version" > teste.txt
 cat teste.txt
 echo "------ End Validate--------"
 
