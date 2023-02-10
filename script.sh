@@ -46,7 +46,7 @@ if [[ "$IS_SECURE" == "true" ]]; then
     
     # set +o xtrace
     echo "------------------LOGIN-----------------"
-    curl -X POST "$ALLURE_SERVER/allure-docker-service/login" \
+    curl -k -X POST "$ALLURE_SERVER/allure-docker-service/login" \
     -H 'Content-Type: application/json' \
     -d "{
         "\""username"\"": "\""$SECURITY_USER"\"",
@@ -59,7 +59,7 @@ if [[ "$IS_SECURE" == "true" ]]; then
     # echo "csrf_access_token value: $CRSF_ACCESS_TOKEN_VALUE"
     
     echo "------------------SEND-RESULTS------------------"
-    curl -X POST "$ALLURE_SERVER/allure-docker-service/send-results?project_id=$PROJECT_ID" \
+    curl -k -X POST "$ALLURE_SERVER/allure-docker-service/send-results?project_id=$PROJECT_ID" \
     -H 'Content-Type: multipart/form-data' \
     -H "X-CSRF-TOKEN: $CRSF_ACCESS_TOKEN_VALUE" \
     -b cookiesFile $FILES -ik
@@ -67,7 +67,7 @@ if [[ "$IS_SECURE" == "true" ]]; then
     set -o xtrace
 else
     echo "------------------SEND-RESULTS------------------"
-    curl -X POST "$ALLURE_SERVER/allure-docker-service/send-results?project_id=$PROJECT_ID" -H 'Content-Type: multipart/form-data' $FILES -ik
+    curl -k -X POST "$ALLURE_SERVER/allure-docker-service/send-results?project_id=$PROJECT_ID" -H 'Content-Type: multipart/form-data' $FILES -ik
 fi
 
 if [[ "$ALLURE_GENERATE" == "true" ]]; then
@@ -78,9 +78,9 @@ if [[ "$ALLURE_GENERATE" == "true" ]]; then
 
     GENERATE_URL="$ALLURE_SERVER/allure-docker-service/generate-report?project_id=$PROJECT_ID&execution_name=$EXECUTION_NAME&execution_from=$EXECUTION_FROM_ENCODED"
     if [[ "$IS_SECURE" == "true" ]]; then
-        RESPONSE=$(curl -X GET "$GENERATE_URL" -H "X-CSRF-TOKEN: $CRSF_ACCESS_TOKEN_VALUE" -b cookiesFile $FILES)
+        RESPONSE=$(curl -k -X GET "$GENERATE_URL" -H "X-CSRF-TOKEN: $CRSF_ACCESS_TOKEN_VALUE" -b cookiesFile $FILES)
     else
-        RESPONSE=$(curl -X GET "$GENERATE_URL" $FILES)
+        RESPONSE=$(curl -k -X GET "$GENERATE_URL" $FILES)
     fi
     echo $(grep -o '"report_url":"[^"]*' <<< "$RESPONSE" | grep -o '[^"]*$')
 fi
