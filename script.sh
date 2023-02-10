@@ -22,7 +22,7 @@ if [ -z "$ALLURE_SERVER_URL" ]; then
 fi
 
 echo "------Validate--------"
-echo $ALLURE_SERVER
+ping -c 4 allure-reports.shared-service-saopaulo.k8s.hub.contaquanto.net
 curl -k "https://allure-reports.shared-service-saopaulo.k8s.hub.contaquanto.net/allure-api/allure-docker-service/version" > teste.txt
 cat teste.txt
 echo "------ End Validate--------"
